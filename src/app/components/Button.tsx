@@ -1,7 +1,9 @@
-function Button() {
+
+export default function Button({ text }: { text: string }): JSX.Element {
     return (
-        <button></button>
+        <button className="
+        bg-sky-500 m-3 pr-4 pl-4 pt-3 pb-3  border-solid border-2 border-white text-white hover:bg-sky-600 shadow-md shadow-black rounded-full
+        active:bg-sky-950 focus:border-3
+        ">{text}</button>
     )
 }
-
-export default Button;
