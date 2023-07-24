@@ -10,7 +10,6 @@ function Header() {
                     <Button 
                         text="About"
                     />
-
                     <Button 
                         text="Meet Me"
                     />
