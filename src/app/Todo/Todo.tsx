@@ -2,6 +2,12 @@ import Button from "../components/Button";
 import TodoItem from "./TodoItem";
 
 function Todo() {
+
+
+  function handleAddTodoClick() {
+      // do something
+  }
+
   return (
     <div className=
     "bg-neutral-900 rounded-lg border-solid border-neutral-50 shadow-[#000000] shadow-md m-2 col-start-1 col-span-1 row-start-1 row-span-4 flex flex-col">

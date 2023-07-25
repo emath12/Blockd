@@ -2,6 +2,15 @@ import Checkbox from '@mui/joy/Checkbox';
 
 
 export default function TodoItem({ title, text }: { title: string, text: string}): JSX.Element {
+    
+    function handleCheckBoxClick() {
+        // do something
+    }
+
+    function handleReallocationClick() {
+        // do something
+    }
+    
     return (
         <div className="
         bg-neutral-700 p-5 m-3 hover: border-black border-2 border-solid rounded-lg shadow-md \
