@@ -1,8 +1,11 @@
 import Button from "../components/Button";
 import TodoItem from "./TodoItem";
+import {useState} from "react"
+import AddTodoForm from "./AddTodoForm";
 
 function Todo() {
 
+  const [activeTodos, setActiveTodos] = useState({});
 
   function handleAddTodoClick() {
       // do something
@@ -15,42 +18,16 @@ function Todo() {
         Todo
       </h1>    
       <div className="row-start-1 row-span-3 grid grid-rows-3">
+
           <TodoItem 
             title={"Buy Groceries"}
             text={"This is a test to do item, let's see what happes when the text is longer!"}
           />  
-             <TodoItem 
-            title={"Buy Groceries"}
-            text={"This is a test to do item, let's see what happes when the text is longer!"}
-          />  
-          
-          <TodoItem 
-            title={"Buy Groceries"}
-            text={"This is a test to do item, let's see what happes when the text is longer!"}
-          />  
-             <TodoItem 
-            title={"Buy Groceries"}
-            text={"This is a test to do item, let's see what happes when the text is longer!"}
-          />     <TodoItem 
-          title={"Buy Groceries"}
-          text={"This is a test to do item, let's see what happes when the text is longer!"}
-        />     <TodoItem 
-        title={"Buy Groceries"}
-        text={"This is a test to do item, let's see what happes when the text is longer!"}
-      />     <TodoItem 
-      title={"Buy Groceries"}
-      text={"This is a test to do item, let's see what happes when the text is longer!"}
-    />  
-          <TodoItem 
-            title={"Buy Groceries"}
-            text={"This is a test to do item, let's see what happes when the text is longer!"}
-          />  
+         
       </div>
 
       <div className="flex row-start-4 row-span-1 justify-center">
-            <Button 
-              text="Add Todo"
-            />
+            <AddTodoForm/>
         </div>
     </div>
   );
