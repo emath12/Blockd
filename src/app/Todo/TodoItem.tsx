@@ -27,7 +27,7 @@ export default function TodoItem({ title, text }: { title: string, text: string}
             <br/>
             <div className="grid grid-cols-6">
                 <p className="col-start-1 col-span-5 p-1 text-white">{text}</p>
-                <button className="bg-neutral-950 h-full rounded-lg text-white">-</button>
+                <button className="bg-neutral-950 border-solid border-white border h-full shadow-sm shadow-black rounded-lg hover:bg-slate-800 active:bg-slate-900 text-white">R</button>
             </div>
             <br/>
            
