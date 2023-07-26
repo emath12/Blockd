@@ -28,25 +28,35 @@ export default function AddTodoForm() {
             
         </Button>
         <Dialog open={open} onClose={handleClose}>
-            <DialogTitle>Subscribe</DialogTitle>
+            <DialogTitle>Add Todo</DialogTitle>
             <DialogContent>
-            <DialogContentText>
-                To subscribe to this website, please enter your email address here. We
-                will send updates occasionally.
-            </DialogContentText>
-            <TextField
-                autoFocus
-                margin="dense"
-                id="name"
-                label="Email Address"
-                type="email"
-                fullWidth
-                variant="standard"
-            />
+                <DialogContentText>
+                    Add information about the Todo.
+                </DialogContentText>
+                <TextField
+                    autoFocus
+                    margin="dense"
+                    id="name"
+                    label="Todo Title"
+                    type="email"
+                    fullWidth
+                    required
+                    variant="outlined"
+                />
+                <TextField
+                    autoFocus
+                    margin="dense"
+                    id="name"
+                    label="Todo Description"
+                    type="email"
+                    multiline
+                    variant="outlined"
+                    minRows={4}
+                    style={{ width: '300px' }}
+                />
             </DialogContent>
             <DialogActions>
-            {/* <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={handleClose}>Subscribe</Button> */}
+                <Button onClick={handleClose} text="Create"></Button>
             </DialogActions>
         </Dialog>
         </div>
