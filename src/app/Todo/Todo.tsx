@@ -27,7 +27,7 @@ function Todo() {
 
       <div className="flex row-start-4 row-span-1 justify-center">
             <AddTodoForm
-              theActiveTodos={activeTodos}
+              theActiveTodos={[activeTodos, setActiveTodos]}
             />
         </div>
     </div>
