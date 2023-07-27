@@ -2,14 +2,11 @@ import Button from "../components/Button";
 import TodoItem from "./TodoItem";
 import {useState} from "react"
 import AddTodoForm from "./AddTodoForm";
+import { TodoObject } from "./TodoObjects";
 
 function Todo() {
 
-  const [activeTodos, setActiveTodos] = useState({});
-
-  function handleAddTodoClick() {
-      // do something
-  }
+  const [activeTodos, setActiveTodos] = useState<TodoObject[]>([]);
 
   return (
     <div className=
@@ -18,16 +15,20 @@ function Todo() {
         Todo
       </h1>    
       <div className="row-start-1 row-span-3 grid grid-rows-3">
-
-          <TodoItem 
-            title={"Buy Groceries"}
-            text={"This is a test to do item, let's see what happes when the text is longer!"}
-          />  
-         
+          {
+            activeTodos.map((todo) => {
+                return <TodoItem 
+                          title={todo.title}
+                          text={todo.description}
+                        />
+            })
+          }  
       </div>
 
       <div className="flex row-start-4 row-span-1 justify-center">
-            <AddTodoForm/>
+            <AddTodoForm
+              theActiveTodos={activeTodos}
+            />
         </div>
     </div>
   );

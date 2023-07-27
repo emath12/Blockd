@@ -15,11 +15,19 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 
-export default function AddTodoForm() {
+// interface AddTodoFormProps {
+//     text: string;
+//     useCustomHook: any; // Replace 'any' with the specific type of the custom hook if possible
+//   }
 
+export default function AddTodoForm(props: any) {
+
+    const [activeTodos, setActiveTodos] = props.theActiveTodos;
     const [open, setOpen] = useState(false);
     const [todoDescription, setTodoDescription] = useState("");
     const [todoTitle, setTodoTitle] = useState("");
+    const [selectedPriority, setSelectedPriority] = useState("1")
+    const [selectedDate, setSelectedDate] = useState(null)
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -28,6 +36,26 @@ export default function AddTodoForm() {
     const handleClose = () => {
         setOpen(false);
     };
+
+    function handleSubmit() {
+
+        console.log(activeTodos);
+        console.log(typeof(activeTodos))
+        let newActiveTodos = [...activeTodos];
+
+        newActiveTodos.push(
+            {
+                "title" : todoTitle,
+                "description": todoDescription,
+                "dueDate" : selectedDate,
+                "priority" : selectedPriority
+            }
+        )
+        setActiveTodos(newActiveTodos);
+        setTodoTitle("");
+        setTodoDescription("")
+        setSelectedDate(null);
+    }
 
     return (
         <div>
@@ -42,6 +70,7 @@ export default function AddTodoForm() {
                 </DialogContentText>
                 <TextField
                     autoFocus
+                    onChange={(e) => setTodoTitle(e.target.value)}
                     margin="dense"
                     id="name"
                     label="Todo Title"
@@ -52,6 +81,7 @@ export default function AddTodoForm() {
                 />
                 <TextField
                     autoFocus
+                    onChange={(e) => setTodoDescription(e.target.value)}
                     margin="dense"
                     id="name"
                     label="Todo Description"
@@ -63,15 +93,19 @@ export default function AddTodoForm() {
                 />
                 <p style={{margin: "6px"}}>Pick a due date:</p>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DateCalendar />
+                    <DateCalendar 
+                        value={selectedDate}
+                        onChange={(newDate) => setSelectedDate(newDate)}
+                    />
                 </LocalizationProvider>
                 <FormControl>
                     <FormLabel id="demo-radio-buttons-group-label">Priority Level</FormLabel>
                         <RadioGroup
                             aria-labelledby="demo-radio-buttons-group-label"
                             defaultValue="1"
-                            required
                             name="radio-buttons-group"
+                            onChange={(event) => setSelectedPriority(event.target.value)}
+
                         >
                             <FormControlLabel value="1" control={<Radio />} label="1" />
                             <FormControlLabel value="2" control={<Radio />} label="2" />
@@ -82,11 +116,9 @@ export default function AddTodoForm() {
                 </FormControl>
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleClose} text="Create"></Button>
+                <Button onClick={() => {handleClose(); handleSubmit()}} text="Create"></Button>
             </DialogActions>
         </Dialog>
         </div>
     );
-
-    // be a dialog where you have info for the todo
 }
