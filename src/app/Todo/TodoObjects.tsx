@@ -1,6 +1,8 @@
 export interface TodoObject {
+    id : number,
     title : string,
     description : string,
     dueDate : Date,
-    priority : number
+    priority : number,
+    timeNeeded : number
 }

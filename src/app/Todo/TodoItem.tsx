@@ -1,10 +1,22 @@
 import Checkbox from '@mui/joy/Checkbox';
 
 
-export default function TodoItem({ title, text }: { title: string, text: string}): JSX.Element {
+export default function TodoItem(props: any) {
+
+    const id = props.id
+
+    const [activeTodos, setActiveTodos] = props.theActiveTodos;
     
     function handleCheckBoxClick() {
-        // do something
+        
+        let newActiveTodos = [...activeTodos];
+
+        newActiveTodos = newActiveTodos.filter((todo: any) => {
+            todo.id != id
+        })
+
+        setActiveTodos(newActiveTodos);
+
     }
 
     function handleReallocationClick() {
@@ -18,15 +30,17 @@ export default function TodoItem({ title, text }: { title: string, text: string}
             
             <div className='grid grid-cols-2'>
                 <div className='col-start-1 col-span-1'>
-                    <h1 className="text-weight text-white font-bold">{title}</h1>
+                    <h1 className="text-weight text-white font-bold">{props.title}</h1>
                 </div>
                 <div className='col-start-2 col-span-1' style={{ justifySelf: 'end' }}>
-                    <Checkbox />
+                    <Checkbox 
+                        onChange={handleCheckBoxClick}
+                    />
                 </div>
             </div>
             <br/>
             <div className="grid grid-cols-6">
-                <p className="col-start-1 col-span-5 p-1 text-white">{text}</p>
+                <p className="col-start-1 col-span-5 p-1 text-white">{props.text}</p>
                 <button className="bg-neutral-950 border-solid border-white border h-full shadow-sm shadow-black rounded-lg hover:bg-slate-800 active:bg-slate-900 text-white">R</button>
             </div>
             <br/>

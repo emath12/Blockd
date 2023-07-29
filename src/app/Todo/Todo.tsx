@@ -18,8 +18,11 @@ function Todo() {
           {
             activeTodos.map((todo) => {
                 return <TodoItem 
+                          id={todo.id}
+                          key={todo.id}
                           title={todo.title}
                           text={todo.description}
+                          theActiveTodos={[activeTodos, setActiveTodos]}
                         />
             })
           }  
