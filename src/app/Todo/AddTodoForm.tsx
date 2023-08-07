@@ -14,6 +14,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 
 // interface AddTodoFormProps {
 //     text: string;
@@ -23,12 +24,12 @@ import FormLabel from '@mui/material/FormLabel';
 export default function AddTodoForm(props: any) {
 
     const [activeTodos, setActiveTodos] = props.theActiveTodos;
-    const [open, setOpen] = useState(false);
-    const [todoDescription, setTodoDescription] = useState("");
-    const [todoTitle, setTodoTitle] = useState("");
-    const [selectedPriority, setSelectedPriority] = useState("1")
-    const [selectedDate, setSelectedDate] = useState(null)
-    const [selectedTimeNeeded, setSelectedTimeNeeded] = useState("")
+    const [open, setOpen] = useState<boolean>(false);
+    const [todoDescription, setTodoDescription] = useState<string>("");
+    const [todoTitle, setTodoTitle] = useState<string>("");
+    const [selectedPriority, setSelectedPriority] = useState<string>("1")
+    const [selectedDateTime, setSelectedDateTime] = useState<Date>(new Date(0))
+    const [selectedTimeNeeded, setSelectedTimeNeeded] = useState<string>("")
     
     let numOfTodos = 0
 
@@ -51,17 +52,18 @@ export default function AddTodoForm(props: any) {
                 "id" : numOfTodos,
                 "title" : todoTitle,
                 "description": todoDescription,
-                "dueDate" : selectedDate,
+                "dueDate" : selectedDateTime,
                 "priority" : selectedPriority,
                 "timeNeeded" : selectedTimeNeeded
             }
         )
 
+        
         numOfTodos += 1
         setActiveTodos(newActiveTodos);
         setTodoTitle("");
         setTodoDescription("")
-        setSelectedDate(null);
+        setSelectedDateTime(new Date(0));
     }
 
     return (
@@ -71,7 +73,7 @@ export default function AddTodoForm(props: any) {
         </Button>
         <Dialog open={open} onClose={handleClose}>
             <DialogTitle>Add Todo</DialogTitle>
-            <DialogContent>
+            <DialogContent className={"space-x-3"}>
                 <DialogContentText>
                     Add information about the Todo.
                 </DialogContentText>
@@ -100,10 +102,11 @@ export default function AddTodoForm(props: any) {
                 />
                 <p style={{margin: "6px"}}>Pick a due date:</p>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DateCalendar 
+                    <DateTimePicker 
+                        label="Basic date time picker" 
                         className='float-left'
-                        value={selectedDate}
-                        onChange={(newDate) => setSelectedDate(newDate)}
+                        onChange={(newDate) => setSelectedDateTime(newDate)}
+                        value={selectedDateTime}
                     />
                 </LocalizationProvider>
                 <FormControl>
