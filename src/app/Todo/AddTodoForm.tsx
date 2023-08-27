@@ -27,14 +27,16 @@ export default function AddTodoForm(props: any) {
     const [open, setOpen] = useState<boolean>(false);
     const [todoDescription, setTodoDescription] = useState<string>("");
     const [todoTitle, setTodoTitle] = useState<string>("");
-    const [selectedPriority, setSelectedPriority] = useState<string>("1")
-    const [selectedDateTime, setSelectedDateTime] = useState<Date>(new Date(0))
-    const [selectedTimeNeeded, setSelectedTimeNeeded] = useState<string>("")
+    const [selectedPriority, setSelectedPriority] = useState<string>("1");
+    const [selectedDateTime, setSelectedDateTime] = useState(undefined);
+    const [selectedTimeNeeded, setSelectedTimeNeeded] = useState<string>("");
+
+    let theEvents = props.events;
     
     let numOfTodos = 0
 
     const handleClickOpen = () => {
-        setOpen(true);
+        setOpen(true)
     };
 
     const handleClose = () => {
@@ -57,8 +59,7 @@ export default function AddTodoForm(props: any) {
                 "timeNeeded" : selectedTimeNeeded
             }
         )
-
-        
+             
         numOfTodos += 1
         setActiveTodos(newActiveTodos);
         setTodoTitle("");
