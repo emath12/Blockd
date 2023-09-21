@@ -8,7 +8,6 @@ import Button from '../components/Button';
 import TextField from '@mui/material/TextField';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -28,12 +27,10 @@ export default function AddTodoForm(props: any) {
     const [todoDescription, setTodoDescription] = useState<string>("");
     const [todoTitle, setTodoTitle] = useState<string>("");
     const [selectedPriority, setSelectedPriority] = useState<string>("1");
-    const [selectedDateTime, setSelectedDateTime] = useState(undefined);
+    const [selectedDateTime, setSelectedDateTime] = useState<Date | null>(null);
     const [selectedTimeNeeded, setSelectedTimeNeeded] = useState<string>("");
 
     let theEvents = props.events;
-    
-    let numOfTodos = 0
 
     const handleClickOpen = () => {
         setOpen(true)
@@ -43,15 +40,29 @@ export default function AddTodoForm(props: any) {
         setOpen(false);
     };
 
+    const handleDateChange = (newDate: Date | null) => {
+        // Your date handling logic here
+        setSelectedDateTime(newDate);
+      };
+
     function handleSubmit() {
 
-        console.log(activeTodos);
-        console.log(typeof(activeTodos))
+        console.log(
+            {
+                "id" : activeTodos.length,
+                "title" : todoTitle,
+                "description": todoDescription,
+                "dueDate" : selectedDateTime,
+                "priority" : selectedPriority,
+                "timeNeeded" : selectedTimeNeeded
+            }
+        )
+
         let newActiveTodos = [...activeTodos];
 
         newActiveTodos.push(
             {
-                "id" : numOfTodos,
+                "id" : activeTodos.length,
                 "title" : todoTitle,
                 "description": todoDescription,
                 "dueDate" : selectedDateTime,
@@ -60,88 +71,99 @@ export default function AddTodoForm(props: any) {
             }
         )
              
-        numOfTodos += 1
         setActiveTodos(newActiveTodos);
         setTodoTitle("");
         setTodoDescription("")
-        setSelectedDateTime(new Date(0));
+        // setSelectedDateTime(new Date(0));
     }
 
     return (
         <div>
         <Button text={"Add Todo"} onClick={handleClickOpen}>
-            
         </Button>
         <Dialog open={open} onClose={handleClose}>
-            <DialogTitle>Add Todo</DialogTitle>
-            <DialogContent className={"space-x-3"}>
-                <DialogContentText>
-                    Add information about the Todo.
-                </DialogContentText>
-                <TextField
-                    autoFocus
-                    onChange={(e) => setTodoTitle(e.target.value)}
-                    margin="dense"
-                    id="name"
-                    label="Todo Title"
-                    type="email"
-                    fullWidth
-                    required
-                    variant="outlined"
-                />
-                <TextField
-                    autoFocus
-                    onChange={(e) => setTodoDescription(e.target.value)}
-                    margin="dense"
-                    id="name"
-                    label="Todo Description"
-                    type="email"
-                    multiline
-                    variant="outlined"
-                    minRows={4}
-                    style={{ width: '552px' }}
-                />
-                <p style={{margin: "6px"}}>Pick a due date:</p>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DateTimePicker 
-                        label="Basic date time picker" 
-                        className='float-left'
-                        onChange={(newDate) => setSelectedDateTime(newDate)}
-                        value={selectedDateTime}
-                    />
-                </LocalizationProvider>
-                <FormControl>
-                    <FormLabel id="demo-radio-buttons-group-label">Priority Level</FormLabel>
-                        <RadioGroup
-                            aria-labelledby="demo-radio-buttons-group-label"
-                            defaultValue="1"
-                            name="radio-buttons-group"
-                            onChange={(event) => setSelectedPriority(event.target.value)}
+                <DialogTitle>Add a Todo</DialogTitle>
+                <div className="flex justify-start">
+                <DialogContent>
+                    <DialogContentText>
+                        Add information about the Todo.
+                    </DialogContentText>
+                    <div className='w-full justify-left'>
+                        <TextField
+                            autoFocus
+                            onChange={(e) => setTodoTitle(e.target.value)}
+                            margin="dense"
+                            id="name"
+                            label="Todo Title"
+                            type="email"
+                            fullWidth
+                            required
+                            variant="outlined"
+                            style={{ width: '100%' }}
+                        />
+                        <TextField
+                            autoFocus
+                            onChange={(e) => setTodoDescription(e.target.value)}
+                            margin="dense"
+                            id="name"
+                            label="Todo Description"
+                            type="email"
+                            multiline
+                            fullWidth
+                            variant="outlined"
+                            minRows={4}
+                            style={{ width: '100%' }}
+                        />
+                    </div>
 
-                        >
-                            <FormControlLabel value="1" control={<Radio />} label="1" />
-                            <FormControlLabel value="2" control={<Radio />} label="2" />
-                            <FormControlLabel value="3" control={<Radio />} label="3" />
-                            <FormControlLabel value="4" control={<Radio />} label="4" />
-                            <FormControlLabel value="5" control={<Radio />} label="5" />
-                        </RadioGroup>
-                        <FormLabel id="demo-radio-buttons-group-label">How much time do you need?</FormLabel>
-                        <RadioGroup
-                            aria-labelledby="demo-radio-buttons-group-label"
-                            defaultValue="15"
-                            name="radio-buttons-group"
-                            onChange={(event) => setSelectedTimeNeeded(event.target.value)}
+                    <div className='grid place-content-center'>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DateTimePicker 
+                                label="Due Date" 
+                                className='float-left m-6'
+                                onChange={handleDateChange}
+                                value={selectedDateTime}
+                                />
+                        </LocalizationProvider>
+                    </div>
+                    <FormControl>
+                        <div className='grid grid-rows-1 grid-cols-2'>
+                            <div className='col-span-1'>
+                                <FormLabel id="demo-radio-buttons-group-label">Priority Level</FormLabel>
+                                <RadioGroup
+                                    aria-labelledby="demo-radio-buttons-group-label"
+                                    defaultValue="1"
+                                    name="radio-buttons-group"
+                                    onChange={(event) => setSelectedPriority(event.target.value)}
+                                >
+                                    <FormControlLabel value="1" control={<Radio />} label="1" />
+                                    <FormControlLabel value="2" control={<Radio />} label="2" />
+                                    <FormControlLabel value="3" control={<Radio />} label="3" />
+                                    <FormControlLabel value="4" control={<Radio />} label="4" />
+                                    <FormControlLabel value="5" control={<Radio />} label="5" />
+                                </RadioGroup>
+                            </div>
+                            <div className='col-span-1'>
+                                <FormLabel id="demo-radio-buttons-group-label">How much time do you need?</FormLabel>
+                                <RadioGroup
+                                    aria-labelledby="demo-radio-buttons-group-label"
+                                    defaultValue="15"
+                                    name="radio-buttons-group"
+                                    onChange={(event) => setSelectedTimeNeeded(event.target.value)}
 
-                        >
-                            <FormControlLabel value="15" control={<Radio />} label="15" />
-                            <FormControlLabel value="30" control={<Radio />} label="30" />
-                            <FormControlLabel value="60" control={<Radio />} label="60" />
-                        </RadioGroup>
-                </FormControl>
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={() => {handleClose(); handleSubmit()}} text="Create"></Button>
-            </DialogActions>
+                                >
+                                    <FormControlLabel value="15" control={<Radio />} label="15" />
+                                    <FormControlLabel value="30" control={<Radio />} label="30" />
+                                    <FormControlLabel value="60" control={<Radio />} label="60" />
+                                </RadioGroup>
+                            </div>
+                        </div>
+                    </FormControl>
+                    <DialogActions>
+                        <Button onClick={() => {handleClose(); handleSubmit()}} text="Create"></Button>
+                    </DialogActions>
+                </DialogContent>
+            </div>
         </Dialog>
         </div>
     );

@@ -16,10 +16,10 @@ function Todo() {
       </h1>    
       <div className="row-start-1 row-span-3 grid grid-rows-3">
           {
-            activeTodos.map((todo) => {
+            activeTodos.map((todo, index) => {
                 return <TodoItem 
-                          id={todo.id}
-                          key={todo.id}
+                          id={index}
+                          key={index}
                           title={todo.title}
                           text={todo.description}
                           theActiveTodos={[activeTodos, setActiveTodos]}

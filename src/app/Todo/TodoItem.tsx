@@ -24,27 +24,37 @@ export default function TodoItem(props: any) {
     }
     
     return (
-        <div className="
+        <>
+        <div 
+        key={id}
+        className="
         bg-neutral-700 p-5 m-3 hover: border-black border-2 border-solid rounded-lg shadow-md \
          shadow-black transition-transform transform hover:scale-105">
             
             <div className='grid grid-cols-2'>
-                <div className='col-start-1 col-span-1'>
-                    <h1 className="text-weight text-white font-bold">{props.title}</h1>
+                <div className='col-start-1 col-span-2'>
+                    <h1 className="underline text-lg font-bold text-white ">{props.title}</h1>
+                    <div className='col-start-2 col-span-1'>
+                        
+                    </div>
                 </div>
-                <div className='col-start-2 col-span-1' style={{ justifySelf: 'end' }}>
+                
+            </div>
+            <p className="col-start-1 col-span-5 mt-2 mb-5 text-sm text-white">{props.text}</p>
+            <p className='text-red-700 sm-2 ml-0 mr-0'>Due: {props.dueDate} </p>
+            <div className='grid grid-cols-2'>
+                <button className="bg-neutral-950 shadow-sm shadow-black rounded-lg p-2 hover:bg-slate-900 active:bg-slate-900 text-white col-start-1 col-span-1">
+                    Reallocate
+                </button>
+                <div className='col-start-2 col-span-1 flex flex-col justify-end items-end'> 
                     <Checkbox 
                         onChange={handleCheckBoxClick}
                     />
-                </div>
+                </div>   
             </div>
-            <br/>
-            <div className="grid grid-cols-6">
-                <p className="col-start-1 col-span-5 p-1 text-white">{props.text}</p>
-                <button className="bg-neutral-950 border-solid border-white border h-full shadow-sm shadow-black rounded-lg hover:bg-slate-800 active:bg-slate-900 text-white">R</button>
-            </div>
-            <br/>
-           
+
         </div>
+
+        </>
     )
 }
