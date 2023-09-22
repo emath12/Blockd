@@ -40,8 +40,10 @@ export default function TodoItem(props: any) {
                 </div>
                 
             </div>
-            <p className="col-start-1 col-span-5 mt-2 mb-5 text-sm text-white">{props.text}</p>
-            <p className='text-red-700 sm-2 mb-1 ml-0 mr-0'>Due: {props.dueDate} </p>
+            <p className="col-start-1 col-span-1 mt-2 mb-5 text-sm text-white">
+                {props.text}
+            </p>
+            <p className='text-red-700 font-extrabold sm-2 mb-1 ml-0 mr-0'>Due: {props.dueDate} </p>
             <div className='grid grid-cols-2'>
                 <button className="bg-neutral-950 shadow-sm shadow-black rounded-lg p-2 hover:bg-slate-900 active:bg-slate-900 text-white col-start-1 col-span-1">
                     Reallocate
@@ -50,8 +52,15 @@ export default function TodoItem(props: any) {
                     <Checkbox 
                         onChange={handleCheckBoxClick}
                     />
-                </div>   
+                </div>
             </div>
+            <div className='mt-3 font-bold text-white'>
+                <center>
+                    {"Priority Level: " + props.priority}
+                    <br/>
+                    {"Time Needed: " + props.timeNeeded}
+                </center>
+            </div>   
 
         </div>
 

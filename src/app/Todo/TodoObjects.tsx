@@ -4,5 +4,5 @@ export interface TodoObject {
     description : string,
     dueDate : Date,
     priority : number,
-    timeNeeded : number
+    timeNeeded : number,
 }

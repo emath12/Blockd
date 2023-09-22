@@ -3,6 +3,7 @@ import TodoItem from "./TodoItem";
 import {useState} from "react"
 import AddTodoForm from "./AddTodoForm";
 import { TodoObject } from "./TodoObjects";
+import { C } from "@fullcalendar/core/internal-common";
 
 function Todo() {
 
@@ -14,14 +15,18 @@ function Todo() {
       <h1 className="m-4 bg-neutral-800 text-white rounded-lg p-4 text-2xl font-extrabold text-center">
         Todo
       </h1>    
-      <div className="row-start-1 row-span-1 grid grid-rows-3">
+      <div className="break-words">
           {
             activeTodos.map((todo, index) => {
+                console.log(todo)
                 return <TodoItem 
                           id={index}
                           key={index}
                           title={todo.title}
+                          dueDate={todo.dueDate.$d.toLocaleDateString()}
                           text={todo.description}
+                          priority={todo.priority}
+                          timeNeeded={todo.timeNeeded}
                           theActiveTodos={[activeTodos, setActiveTodos]}
                         />
             })

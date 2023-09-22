@@ -47,16 +47,16 @@ export default function AddTodoForm(props: any) {
 
     function handleSubmit() {
 
-        console.log(
-            {
-                "id" : activeTodos.length,
-                "title" : todoTitle,
-                "description": todoDescription,
-                "dueDate" : selectedDateTime,
-                "priority" : selectedPriority,
-                "timeNeeded" : selectedTimeNeeded
-            }
-        )
+        // console.log(
+        //     {
+        //         "id" : activeTodos.length,
+        //         "title" : todoTitle,
+        //         "description": todoDescription,
+        //         "dueDate" : selectedDateTime,
+        //         "priority" : selectedPriority,
+        //         "timeNeeded" : selectedTimeNeeded
+        //     }
+        // )
 
         let newActiveTodos = [...activeTodos];
 
@@ -67,7 +67,7 @@ export default function AddTodoForm(props: any) {
                 "description": todoDescription,
                 "dueDate" : selectedDateTime,
                 "priority" : selectedPriority,
-                "timeNeeded" : selectedTimeNeeded
+                "timeNeeded" : selectedTimeNeeded,
             }
         )
              
