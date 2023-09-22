@@ -14,7 +14,7 @@ function Todo() {
       <h1 className="m-4 bg-neutral-800 text-white rounded-lg p-4 text-2xl font-extrabold text-center">
         Todo
       </h1>    
-      <div className="row-start-1 row-span-3 grid grid-rows-3">
+      <div className="row-start-1 row-span-1 grid grid-rows-3">
           {
             activeTodos.map((todo, index) => {
                 return <TodoItem 
@@ -28,7 +28,7 @@ function Todo() {
           }  
       </div>
 
-      <div className="flex row-start-4 row-span-1 justify-center">
+      <div className="flex row-start-2 justify-center">
             <AddTodoForm
               theActiveTodos={[activeTodos, setActiveTodos]}
             />
